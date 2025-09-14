@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="22225" systemVersion="23A344" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="AppUsageSession" representedClassName="AppUsageSession" syncable="YES" codeGenerationType="class">
+        <attribute name="appBundleID" optional="NO" attributeType="String"/>
+        <attribute name="duration" optional="NO" attributeType="Double" defaultValueString="0.0"/>
+        <attribute name="endTime" optional="YES" attributeType="Date"/>
+        <attribute name="sessionID" optional="NO" attributeType="UUID"/>
+        <attribute name="startTime" optional="NO" attributeType="Date"/>
+        <relationship name="user" optional="NO" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="usageSessions" inverseEntity="User"/>
+    </entity>
+    <entity name="LearningGoal" representedClassName="LearningGoal" syncable="YES" codeGenerationType="class">
+        <attribute name="createdAt" optional="NO" attributeType="Date"/>
+        <attribute name="goalID" optional="NO" attributeType="UUID"/>
+        <attribute name="isActive" optional="NO" attributeType="Boolean" defaultValueString="YES"/>
+        <attribute name="targetDurationMinutes" optional="NO" attributeType="Integer 32" defaultValueString="0"/>
+        <attribute name="updatedAt" optional="NO" attributeType="Date"/>
+        <relationship name="learningApps" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="SelectedApp" inverseName="learningGoal" inverseEntity="SelectedApp"/>
+        <relationship name="rewardApps" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="SelectedApp" inverseName="rewardGoal" inverseEntity="SelectedApp"/>
+        <relationship name="user" optional="NO" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="learningGoals" inverseEntity="User"/>
+    </entity>
+    <entity name="SelectedApp" representedClassName="SelectedApp" syncable="YES" codeGenerationType="class">
+        <attribute name="appBundleID" optional="NO" attributeType="String"/>
+        <attribute name="appName" optional="NO" attributeType="String"/>
+        <attribute name="appType" optional="NO" attributeType="String"/>
+        <attribute name="iconData" optional="YES" attributeType="Binary"/>
+        <attribute name="isBlocked" optional="NO" attributeType="Boolean" defaultValueString="NO"/>
+        <attribute name="selectedAt" optional="NO" attributeType="Date"/>
+        <relationship name="learningGoal" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="LearningGoal" inverseName="learningApps" inverseEntity="LearningGoal"/>
+        <relationship name="rewardGoal" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="LearningGoal" inverseName="rewardApps" inverseEntity="LearningGoal"/>
+    </entity>
+    <entity name="User" representedClassName="User" syncable="YES" codeGenerationType="class">
+        <attribute name="createdAt" optional="NO" attributeType="Date"/>
+        <attribute name="isActive" optional="NO" attributeType="Boolean" defaultValueString="YES"/>
+        <attribute name="name" optional="NO" attributeType="String"/>
+        <attribute name="parentCode" optional="YES" attributeType="String"/>
+        <attribute name="role" optional="NO" attributeType="String"/>
+        <attribute name="userID" optional="NO" attributeType="UUID"/>
+        <relationship name="learningGoals" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="LearningGoal" inverseName="user" inverseEntity="LearningGoal"/>
+        <relationship name="usageSessions" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="AppUsageSession" inverseName="user" inverseEntity="AppUsageSession"/>
+    </entity>
+</model>

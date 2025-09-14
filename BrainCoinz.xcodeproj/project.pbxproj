@@ -1,0 +1,429 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		1A1B1C1D1E1F1011 /* BrainCoinzApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A1B1C1D1E1F1010 /* BrainCoinzApp.swift */; };
+		1A1B1C1D1E1F1013 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A1B1C1D1E1F1012 /* ContentView.swift */; };
+		1A1B1C1D1E1F1015 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1A1B1C1D1E1F1014 /* Assets.xcassets */; };
+		1A1B1C1D1E1F1018 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1A1B1C1D1E1F1017 /* Preview Assets.xcassets */; };
+		1A1B1C1D1E1F101A /* DataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1A1B1C1D1E1F1019 /* DataModel.xcdatamodeld */; };
+		1A1B1C1D1E1F101C /* AuthenticationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A1B1C1D1E1F101B /* AuthenticationManager.swift */; };
+		1A1B1C1D1E1F101E /* FamilyControlsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A1B1C1D1E1F101D /* FamilyControlsManager.swift */; };
+		1A1B1C1D1E1F1020 /* DeviceActivityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A1B1C1D1E1F101F /* DeviceActivityManager.swift */; };
+		1A1B1C1D1E1F1022 /* ManagedSettingsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A1B1C1D1E1F1021 /* ManagedSettingsManager.swift */; };
+		1A1B1C1D1E1F1024 /* ParentDashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A1B1C1D1E1F1023 /* ParentDashboardView.swift */; };
+		1A1B1C1D1E1F1026 /* ChildDashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A1B1C1D1E1F1025 /* ChildDashboardView.swift */; };
+		1A1B1C1D1E1F1028 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A1B1C1D1E1F1027 /* NotificationManager.swift */; };
+		1A1B1C1D1E1F102A /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A1B1C1D1E1F1029 /* OnboardingView.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		1A1B1C1D1E1F100D /* BrainCoinz.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BrainCoinz.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		1A1B1C1D1E1F1010 /* BrainCoinzApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrainCoinzApp.swift; sourceTree = "<group>"; };
+		1A1B1C1D1E1F1012 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		1A1B1C1D1E1F1014 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		1A1B1C1D1E1F1017 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		1A1B1C1D1E1F1019 /* DataModel.xcdatamodeld */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DataModel.xcdatamodeld; sourceTree = "<group>"; };
+		1A1B1C1D1E1F101B /* AuthenticationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationManager.swift; sourceTree = "<group>"; };
+		1A1B1C1D1E1F101D /* FamilyControlsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamilyControlsManager.swift; sourceTree = "<group>"; };
+		1A1B1C1D1E1F101F /* DeviceActivityManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceActivityManager.swift; sourceTree = "<group>"; };
+		1A1B1C1D1E1F1021 /* ManagedSettingsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagedSettingsManager.swift; sourceTree = "<group>"; };
+		1A1B1C1D1E1F1023 /* ParentDashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParentDashboardView.swift; sourceTree = "<group>"; };
+		1A1B1C1D1E1F1025 /* ChildDashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChildDashboardView.swift; sourceTree = "<group>"; };
+		1A1B1C1D1E1F1027 /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
+		1A1B1C1D1E1F1029 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
+		1A1B1C1D1E1F102B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1A1B1C1D1E1F102C /* BrainCoinz.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = BrainCoinz.entitlements; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		1A1B1C1D1E1F100A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		1A1B1C1D1E1F1004 = {
+			isa = PBXGroup;
+			children = (
+				1A1B1C1D1E1F100F /* BrainCoinz */,
+				1A1B1C1D1E1F100E /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		1A1B1C1D1E1F100E /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				1A1B1C1D1E1F100D /* BrainCoinz.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		1A1B1C1D1E1F100F /* BrainCoinz */ = {
+			isa = PBXGroup;
+			children = (
+				1A1B1C1D1E1F102C /* BrainCoinz.entitlements */,
+				1A1B1C1D1E1F102B /* Info.plist */,
+				1A1B1C1D1E1F1010 /* BrainCoinzApp.swift */,
+				1A1B1C1D1E1F1012 /* ContentView.swift */,
+				1A1B1C1D1E1F1030 /* Views */,
+				1A1B1C1D1E1F1031 /* Managers */,
+				1A1B1C1D1E1F1032 /* Data */,
+				1A1B1C1D1E1F1014 /* Assets.xcassets */,
+				1A1B1C1D1E1F1016 /* Preview Content */,
+			);
+			path = BrainCoinz;
+			sourceTree = "<group>";
+		};
+		1A1B1C1D1E1F1016 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				1A1B1C1D1E1F1017 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		1A1B1C1D1E1F1030 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				1A1B1C1D1E1F1023 /* ParentDashboardView.swift */,
+				1A1B1C1D1E1F1025 /* ChildDashboardView.swift */,
+				1A1B1C1D1E1F1029 /* OnboardingView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		1A1B1C1D1E1F1031 /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				1A1B1C1D1E1F101B /* AuthenticationManager.swift */,
+				1A1B1C1D1E1F101D /* FamilyControlsManager.swift */,
+				1A1B1C1D1E1F101F /* DeviceActivityManager.swift */,
+				1A1B1C1D1E1F1021 /* ManagedSettingsManager.swift */,
+				1A1B1C1D1E1F1027 /* NotificationManager.swift */,
+			);
+			path = Managers;
+			sourceTree = "<group>";
+		};
+		1A1B1C1D1E1F1032 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				1A1B1C1D1E1F1019 /* DataModel.xcdatamodeld */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		1A1B1C1D1E1F100C /* BrainCoinz */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1A1B1C1D1E1F1040 /* Build configuration list for PBXNativeTarget "BrainCoinz" */;
+			buildPhases = (
+				1A1B1C1D1E1F1009 /* Sources */,
+				1A1B1C1D1E1F100A /* Frameworks */,
+				1A1B1C1D1E1F100B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = BrainCoinz;
+			productName = BrainCoinz;
+			productReference = 1A1B1C1D1E1F100D /* BrainCoinz.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		1A1B1C1D1E1F1005 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1500;
+				LastUpgradeCheck = 1500;
+				TargetAttributes = {
+					1A1B1C1D1E1F100C = {
+						CreatedOnToolsVersion = 15.0;
+					};
+				};
+			};
+			buildConfigurationList = 1A1B1C1D1E1F1008 /* Build configuration list for PBXProject "BrainCoinz" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 1A1B1C1D1E1F1004;
+			productRefGroup = 1A1B1C1D1E1F100E /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				1A1B1C1D1E1F100C /* BrainCoinz */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		1A1B1C1D1E1F100B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1A1B1C1D1E1F1018 /* Preview Assets.xcassets in Resources */,
+				1A1B1C1D1E1F1015 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		1A1B1C1D1E1F1009 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1A1B1C1D1E1F1013 /* ContentView.swift in Sources */,
+				1A1B1C1D1E1F101C /* AuthenticationManager.swift in Sources */,
+				1A1B1C1D1E1F1024 /* ParentDashboardView.swift in Sources */,
+				1A1B1C1D1E1F1020 /* DeviceActivityManager.swift in Sources */,
+				1A1B1C1D1E1F1026 /* ChildDashboardView.swift in Sources */,
+				1A1B1C1D1E1F1022 /* ManagedSettingsManager.swift in Sources */,
+				1A1B1C1D1E1F101E /* FamilyControlsManager.swift in Sources */,
+				1A1B1C1D1E1F1028 /* NotificationManager.swift in Sources */,
+				1A1B1C1D1E1F1011 /* BrainCoinzApp.swift in Sources */,
+				1A1B1C1D1E1F102A /* OnboardingView.swift in Sources */,
+				1A1B1C1D1E1F101A /* DataModel.xcdatamodeld in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		1A1B1C1D1E1F103E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		1A1B1C1D1E1F103F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		1A1B1C1D1E1F1041 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = BrainCoinz/BrainCoinz.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"BrainCoinz/Preview Content\"";
+				DEVELOPMENT_TEAM = "";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = BrainCoinz/Info.plist;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.yourcompany.BrainCoinz;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		1A1B1C1D1E1F1042 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = BrainCoinz/BrainCoinz.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"BrainCoinz/Preview Content\"";
+				DEVELOPMENT_TEAM = "";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = BrainCoinz/Info.plist;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.yourcompany.BrainCoinz;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1A1B1C1D1E1F1008 /* Build configuration list for PBXProject "BrainCoinz" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1A1B1C1D1E1F103E /* Debug */,
+				1A1B1C1D1E1F103F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1A1B1C1D1E1F1040 /* Build configuration list for PBXNativeTarget "BrainCoinz" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1A1B1C1D1E1F1041 /* Debug */,
+				1A1B1C1D1E1F1042 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		1A1B1C1D1E1F1019 /* DataModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+			);
+			currentVersion = 1A1B1C1D1E1F101A /* DataModel.xcdatamodel */;
+			path = DataModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = 1A1B1C1D1E1F1005 /* Project object */;
+}

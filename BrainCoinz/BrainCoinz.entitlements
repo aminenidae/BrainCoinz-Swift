@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<!-- Family Controls Capability -->
+	<key>com.apple.developer.family-controls</key>
+	<true/>
+	
+	<!-- Device Activity Monitoring -->
+	<key>com.apple.developer.deviceactivity</key>
+	<true/>
+	
+	<!-- Managed Settings -->
+	<key>com.apple.developer.managedsettings</key>
+	<true/>
+	
+	<!-- Screen Time Request -->
+	<key>com.apple.developer.screentime-request</key>
+	<true/>
+	
+	<!-- Background Modes -->
+	<key>com.apple.developer.background-modes</key>
+	<array>
+		<string>background-processing</string>
+		<string>background-fetch</string>
+	</array>
+	
+	<!-- Push Notifications -->
+	<key>aps-environment</key>
+	<string>development</string>
+	
+	<!-- App Groups for extension communication -->
+	<key>com.apple.security.application-groups</key>
+	<array>
+		<string>group.com.yourcompany.braincoinz</string>
+	</array>
+	
+	<!-- Keychain Access Groups for secure storage -->
+	<key>keychain-access-groups</key>
+	<array>
+		<string>$(AppIdentifierPrefix)com.yourcompany.braincoinz</string>
+	</array>
+	
+	<!-- Network client for optional backend sync -->
+	<key>com.apple.developer.networking.networkextension</key>
+	<array>
+		<string>app-proxy-provider</string>
+	</array>
+	
+	<!-- Associated Domains (for universal links if needed) -->
+	<key>com.apple.developer.associated-domains</key>
+	<array>
+		<string>applinks:braincoinz.com</string>
+	</array>
+</dict>
+</plist>
