@@ -29,6 +29,7 @@ struct BrainCoinzApp: App {
     @StateObject private var deviceActivityManager = DeviceActivityManager()
     @StateObject private var managedSettingsManager = ManagedSettingsManager()
     @StateObject private var notificationManager = NotificationManager()
+    @StateObject private var familyAccountManager = FamilyAccountManager()
     
     // Core Data persistence container
     let persistenceController = PersistenceController.shared
@@ -41,6 +42,7 @@ struct BrainCoinzApp: App {
                 .environmentObject(deviceActivityManager)
                 .environmentObject(managedSettingsManager)
                 .environmentObject(notificationManager)
+                .environmentObject(familyAccountManager)
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
                 .onAppear {
                     setupApp()

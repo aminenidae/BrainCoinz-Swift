@@ -75,6 +75,10 @@
 	<key>NSUserNotificationsUsageDescription</key>
 	<string>BrainCoinz sends notifications to keep you informed about learning progress and reward unlocks.</string>
 	
+	<!-- CloudKit for family device synchronization -->
+	<key>NSCloudKitUsageDescription</key>
+	<string>BrainCoinz uses CloudKit to synchronize family screen time data across parent and child devices for remote control functionality.</string>
+	
 	<!-- Background processing for monitoring -->
 	<key>UIBackgroundModes</key>
 	<array>

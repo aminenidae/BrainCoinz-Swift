@@ -12,11 +12,14 @@ BrainCoinz is a comprehensive iOS application designed to help parents manage an
 - **Automatic Reward System**: Unlock reward apps when learning goals are completed
 - **Real-time Progress Tracking**: Monitor learning time and goal progress
 - **Family-Friendly Design**: Separate interfaces for parents and children
+- **Remote Control**: Manage child devices from parent's device (v2.0+)
+- **Multi-Device Support**: Connect and manage multiple family devices (v2.0+)
 
 ### Technical Integration
 - **Family Controls Framework**: Parental authorization and app selection
 - **DeviceActivity Framework**: Real-time app usage monitoring
 - **ManagedSettings Framework**: App blocking and unblocking
+- **CloudKit Framework**: Cross-device family data synchronization (v2.0+)
 - **Core Data**: Local data persistence
 - **User Notifications**: Progress updates and goal completion alerts
 
@@ -360,6 +363,18 @@ print("Blocked Apps Count: \(managedSettingsManager.blockedAppsCount)")
 This project is intended for educational and demonstration purposes. Please ensure compliance with Apple's developer guidelines and applicable laws when implementing parental control features.
 
 ## Version History
+
+### v2.0.0 (Remote Control Release) - COMING SOON
+- **Remote Family Control**: Parents can now control child devices from their own device
+- **CloudKit Integration**: Family data sync across devices using iCloud
+- **Multi-Device Management**: Support for multiple child devices per family account
+- **Real-time Remote Commands**: Block/unblock apps, create goals, send messages remotely
+- **Family Account System**: Secure device pairing with 6-digit family codes
+- **Cross-Device Synchronization**: Goals, app selections, and usage data sync automatically
+- **Enhanced Parent Dashboard**: New remote control interface with device management
+- **Device Pairing Flow**: Easy setup process for connecting family devices
+- **QR Code Sharing**: Quick device registration using QR codes
+- **Privacy-First Cloud Sync**: Secure CloudKit implementation following Apple guidelines
 
 ### v1.0.0 (Initial Release)
 - Complete parental control system

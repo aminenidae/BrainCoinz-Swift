@@ -17,6 +17,9 @@ import SwiftUI
 struct ContentView: View {
     @EnvironmentObject var authManager: AuthenticationManager
     @EnvironmentObject var familyControlsManager: FamilyControlsManager
+    @EnvironmentObject var familyAccountManager: FamilyAccountManager
+    
+    @State private var showingParentModeSelection = false
     
     var body: some View {
         Group {
@@ -26,7 +29,7 @@ struct ContentView: View {
             } else if authManager.isAuthenticated {
                 // Show appropriate dashboard based on user role
                 if authManager.currentUserRole == .parent {
-                    ParentDashboardView()
+                    ParentModeSelectionView()
                 } else {
                     ChildDashboardView()
                 }
@@ -188,4 +191,127 @@ struct RoleSelectionButton: View {
     ContentView()
         .environmentObject(AuthenticationManager())
         .environmentObject(FamilyControlsManager())
+        .environmentObject(FamilyAccountManager())
+}
+
+/**
+ * Parent mode selection view to choose between local control and remote control
+ */
+struct ParentModeSelectionView: View {
+    @EnvironmentObject var familyAccountManager: FamilyAccountManager
+    @State private var selectedMode: ParentMode = .local
+    
+    enum ParentMode {
+        case local
+        case remote
+    }
+    
+    var body: some View {
+        NavigationView {
+            VStack(spacing: 30) {
+                VStack(spacing: 16) {
+                    Image(systemName: "person.badge.shield.checkmark")
+                        .font(.system(size: 60))
+                        .foregroundColor(.blue)
+                    
+                    Text("Parent Control Mode")
+                        .font(.largeTitle)
+                        .fontWeight(.bold)
+                    
+                    Text("Choose how you want to manage screen time")
+                        .font(.subheadline)
+                        .foregroundColor(.secondary)
+                        .multilineTextAlignment(.center)
+                }
+                .padding(.top, 40)
+                
+                Spacer()
+                
+                VStack(spacing: 20) {
+                    HStack(spacing: 20) {
+                        ParentModeButton(
+                            mode: .local,
+                            title: "This Device",
+                            subtitle: "Control this device directly",
+                            icon: "iphone",
+                            isSelected: selectedMode == .local
+                        ) {
+                            selectedMode = .local
+                        }
+                        
+                        ParentModeButton(
+                            mode: .remote,
+                            title: "Remote Control",
+                            subtitle: "Manage family devices remotely",
+                            icon: "externaldrive.connected.to.line.below",
+                            isSelected: selectedMode == .remote
+                        ) {
+                            selectedMode = .remote
+                        }
+                    }
+                    
+                    Button("Continue") {
+                        // Navigation handled by fullScreenCover
+                    }
+                    .font(.headline)
+                    .foregroundColor(.white)
+                    .frame(maxWidth: .infinity)
+                    .padding()
+                    .background(Color.blue)
+                    .cornerRadius(10)
+                }
+                
+                Spacer()
+            }
+            .padding()
+            .navigationBarHidden(true)
+        }
+        .fullScreenCover(isPresented: .constant(selectedMode == .local)) {
+            if selectedMode == .local {
+                ParentDashboardView()
+            }
+        }
+        .fullScreenCover(isPresented: .constant(selectedMode == .remote)) {
+            if selectedMode == .remote {
+                RemoteParentDashboardView()
+            }
+        }
+    }
+}
+
+/**
+ * Parent mode selection button
+ */
+struct ParentModeButton: View {
+    let mode: ParentModeSelectionView.ParentMode
+    let title: String
+    let subtitle: String
+    let icon: String
+    let isSelected: Bool
+    let action: () -> Void
+    
+    var body: some View {
+        Button(action: action) {
+            VStack(spacing: 12) {
+                Image(systemName: icon)
+                    .font(.system(size: 30))
+                
+                Text(title)
+                    .font(.headline)
+                    .fontWeight(.semibold)
+                
+                Text(subtitle)
+                    .font(.caption)
+                    .multilineTextAlignment(.center)
+            }
+            .foregroundColor(isSelected ? .white : .blue)
+            .frame(width: 140, height: 120)
+            .background(isSelected ? Color.blue : Color.blue.opacity(0.1))
+            .cornerRadius(12)
+            .overlay(
+                RoundedRectangle(cornerRadius: 12)
+                    .stroke(Color.blue, lineWidth: isSelected ? 0 : 2)
+            )
+        }
+    }
 }
