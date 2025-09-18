@@ -126,6 +126,37 @@ class FamilyAccountManager: ObservableObject {
     }
     
     /**
+     * Joins an existing family account with the current device as an additional parent device
+     * @param familyCode: 6-digit family code for joining
+     * @param parentName: Name of the additional parent
+     * @param completion: Callback with success status and optional error
+     */
+    func joinFamilyAsParent(familyCode: String, parentName: String, completion: @escaping (Bool, Error?) -> Void) {
+        guard isCloudAvailable else {
+            completion(false, FamilyAccountError.cloudUnavailable)
+            return
+        }
+        
+        // Search for family account by code
+        let predicate = NSPredicate(format: "familyCode == %@", familyCode)
+        let query = CKQuery(recordType: "FamilyAccount", predicate: predicate)
+        
+        database.perform(query, inZoneWith: nil) { [weak self] records, error in
+            DispatchQueue.main.async {
+                if let error = error {
+                    completion(false, error)
+                } else if let record = records?.first {
+                    self?.familyAccount = FamilyAccount(from: record)
+                    self?.registerCurrentDevice(as: .parentDevice, childName: parentName)
+                    completion(true, nil)
+                } else {
+                    completion(false, FamilyAccountError.familyNotFound)
+                }
+            }
+        }
+    }
+    
+    /**
      * Sends a remote control command from parent device to child device
      * @param command: The remote control command to send
      * @param targetDeviceID: ID of the target child device
@@ -203,6 +234,36 @@ class FamilyAccountManager: ObservableObject {
         familyAccount = nil
         connectedDevices.removeAll()
         completion(true)
+    }
+    
+    /**
+     * Checks if the current device is registered as a parent device
+     */
+    func isCurrentDeviceParent() -> Bool {
+        return connectedDevices.first { device in
+            device.deviceID == currentDeviceID && device.deviceType == "parent"
+        } != nil
+    }
+    
+    /**
+     * Gets all parent devices in the family
+     */
+    func getParentDevices() -> [ConnectedDevice] {
+        return connectedDevices.filter { $0.deviceType == "parent" }
+    }
+    
+    /**
+     * Gets all child devices in the family
+     */
+    func getChildDevices() -> [ConnectedDevice] {
+        return connectedDevices.filter { $0.deviceType == "child" }
+    }
+    
+    /**
+     * Checks if a command can be sent (only parent devices can send commands)
+     */
+    func canSendRemoteCommands() -> Bool {
+        return isCurrentDeviceParent()
     }
     
     // MARK: - Private Methods

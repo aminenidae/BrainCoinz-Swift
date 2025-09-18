@@ -177,19 +177,50 @@ struct RemoteParentDashboardView: View {
                 .foregroundColor(.blue)
             }
             
-            if familyAccountManager.connectedDevices.isEmpty {
-                EmptyDevicesView()
-            } else {
-                LazyVGrid(columns: Array(repeating: GridItem(.flexible()), count: 2), spacing: 12) {
-                    ForEach(familyAccountManager.connectedDevices, id: \.deviceID) { device in
-                        DeviceCard(
-                            device: device,
-                            isSelected: selectedChildDevice?.deviceID == device.deviceID
-                        ) {
-                            selectedChildDevice = device
+            // Show parent devices separately
+            if !familyAccountManager.getParentDevices().isEmpty {
+                VStack(alignment: .leading, spacing: 8) {
+                    Text("Parent Devices (\(familyAccountManager.getParentDevices().count))")
+                        .font(.subheadline)
+                        .fontWeight(.medium)
+                        .foregroundColor(.blue)
+                    
+                    LazyVGrid(columns: Array(repeating: GridItem(.flexible()), count: 2), spacing: 12) {
+                        ForEach(familyAccountManager.getParentDevices(), id: \.deviceID) { device in
+                            DeviceCard(
+                                device: device,
+                                isSelected: false
+                            ) {
+                                // Parent devices don't need selection
+                            }
                         }
                     }
                 }
+            }
+            
+            // Show child devices
+            if !familyAccountManager.getChildDevices().isEmpty {
+                VStack(alignment: .leading, spacing: 8) {
+                    Text("Child Devices (\(familyAccountManager.getChildDevices().count))")
+                        .font(.subheadline)
+                        .fontWeight(.medium)
+                        .foregroundColor(.green)
+                    
+                    LazyVGrid(columns: Array(repeating: GridItem(.flexible()), count: 2), spacing: 12) {
+                        ForEach(familyAccountManager.getChildDevices(), id: \.deviceID) { device in
+                            DeviceCard(
+                                device: device,
+                                isSelected: selectedChildDevice?.deviceID == device.deviceID
+                            ) {
+                                selectedChildDevice = device
+                            }
+                        }
+                    }
+                }
+            }
+            
+            if familyAccountManager.connectedDevices.isEmpty {
+                EmptyDevicesView()
             }
         }
     }
@@ -200,7 +231,22 @@ struct RemoteParentDashboardView: View {
                 .font(.headline)
                 .fontWeight(.semibold)
             
-            if let selectedDevice = selectedChildDevice {
+            if !familyAccountManager.canSendRemoteCommands() {
+                VStack(spacing: 8) {
+                    Image(systemName: "lock.shield")
+                        .font(.title2)
+                        .foregroundColor(.orange)
+                    
+                    Text("Only parent devices can send remote commands")
+                        .font(.subheadline)
+                        .foregroundColor(.secondary)
+                        .multilineTextAlignment(.center)
+                }
+                .frame(maxWidth: .infinity)
+                .padding()
+                .background(Color.orange.opacity(0.1))
+                .cornerRadius(12)
+            } else if let selectedDevice = selectedChildDevice {
                 SelectedDeviceActionsView(device: selectedDevice)
             } else {
                 Text("Select a child device to view available actions")
@@ -325,6 +371,41 @@ struct FamilySetupView: View {
         .padding()
     }
     
+    /**
+     * Presents options for joining as parent or child
+     */
+    private func presentJoinAsParentOption() {
+        // For now, we'll default to parent joining
+        // In a production app, you'd show an alert or sheet
+        joinAsParent()
+    }
+    
+    private func joinAsParent() {
+        let parentName = "Parent \(Int.random(in: 1...99))"
+        
+        familyAccountManager.joinFamilyAsParent(
+            familyCode: familyCode,
+            parentName: parentName
+        ) { success, error in
+            self.isLoading = false
+            if !success {
+                self.errorMessage = error?.localizedDescription ?? "Failed to join as parent"
+            }
+        }
+    }
+    
+    private func joinAsChild() {
+        familyAccountManager.joinFamilyAccount(
+            familyCode: familyCode,
+            childName: "Child Device"
+        ) { success, error in
+            self.isLoading = false
+            if !success {
+                self.errorMessage = error?.localizedDescription ?? "Failed to join as child"
+            }
+        }
+    }
+    
     private var isFormValid: Bool {
         if isCreatingFamily {
             return !familyName.isEmpty && !parentName.isEmpty
@@ -348,15 +429,20 @@ struct FamilySetupView: View {
                 }
             }
         } else {
-            // Join family implementation would go here
-            familyAccountManager.joinFamilyAccount(
-                familyCode: familyCode,
-                childName: "Parent Device"
-            ) { success, error in
-                isLoading = false
-                if !success {
-                    errorMessage = error?.localizedDescription ?? "Failed to join family"
+            // Join family implementation - with option to join as parent or child
+            if isCreatingFamily {
+                familyAccountManager.createFamilyAccount(
+                    familyName: familyName,
+                    parentName: parentName
+                ) { success, error in
+                    isLoading = false
+                    if !success {
+                        errorMessage = error?.localizedDescription ?? "Failed to create family"
+                    }
                 }
+            } else {
+                // Ask user if they want to join as parent or child
+                presentJoinAsParentOption()
             }
         }
     }
@@ -505,6 +591,11 @@ struct SelectedDeviceActionsView: View {
     }
     
     private func sendBlockAppsCommand() {
+        guard familyAccountManager.canSendRemoteCommands() else {
+            // Show error - only parents can send commands
+            return
+        }
+        
         let command = RemoteControlCommand(
             type: .blockApps,
             data: ["action": "block_all_reward_apps"],
@@ -517,6 +608,11 @@ struct SelectedDeviceActionsView: View {
     }
     
     private func sendUnblockAppsCommand() {
+        guard familyAccountManager.canSendRemoteCommands() else {
+            // Show error - only parents can send commands
+            return
+        }
+        
         let command = RemoteControlCommand(
             type: .unblockApps,
             data: ["action": "unblock_all_reward_apps"],
@@ -529,6 +625,11 @@ struct SelectedDeviceActionsView: View {
     }
     
     private func sendMessageCommand() {
+        guard familyAccountManager.canSendRemoteCommands() else {
+            // Show error - only parents can send commands
+            return
+        }
+        
         let command = RemoteControlCommand(
             type: .sendMessage,
             data: ["message": "Great job on your learning time today!"],
