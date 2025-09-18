@@ -18,6 +18,7 @@ struct ContentView: View {
     @EnvironmentObject var authManager: AuthenticationManager
     @EnvironmentObject var familyControlsManager: FamilyControlsManager
     @EnvironmentObject var familyAccountManager: FamilyAccountManager
+    @EnvironmentObject var sharedFamilyManager: SharedFamilyManager
     
     @State private var showingParentModeSelection = false
     
@@ -199,11 +200,13 @@ struct RoleSelectionButton: View {
  */
 struct ParentModeSelectionView: View {
     @EnvironmentObject var familyAccountManager: FamilyAccountManager
+    @EnvironmentObject var sharedFamilyManager: SharedFamilyManager
     @State private var selectedMode: ParentMode = .local
     
     enum ParentMode {
         case local
         case remote
+        case familyManagement
     }
     
     var body: some View {
@@ -228,26 +231,39 @@ struct ParentModeSelectionView: View {
                 Spacer()
                 
                 VStack(spacing: 20) {
-                    HStack(spacing: 20) {
-                        ParentModeButton(
-                            mode: .local,
-                            title: "This Device",
-                            subtitle: "Control this device directly",
-                            icon: "iphone",
-                            isSelected: selectedMode == .local
-                        ) {
-                            selectedMode = .local
+                    VStack(spacing: 15) {
+                        HStack(spacing: 15) {
+                            ParentModeButton(
+                                mode: .local,
+                                title: "This Device",
+                                subtitle: "Control this device directly",
+                                icon: "iphone",
+                                isSelected: selectedMode == .local
+                            ) {
+                                selectedMode = .local
+                            }
+                            
+                            ParentModeButton(
+                                mode: .remote,
+                                title: "Remote Control",
+                                subtitle: "Manage family devices remotely",
+                                icon: "externaldrive.connected.to.line.below",
+                                isSelected: selectedMode == .remote
+                            ) {
+                                selectedMode = .remote
+                            }
                         }
                         
                         ParentModeButton(
-                            mode: .remote,
-                            title: "Remote Control",
-                            subtitle: "Manage family devices remotely",
-                            icon: "externaldrive.connected.to.line.below",
-                            isSelected: selectedMode == .remote
+                            mode: .familyManagement,
+                            title: "Family Management",
+                            subtitle: "Manage family members and settings",
+                            icon: "person.3.sequence.fill",
+                            isSelected: selectedMode == .familyManagement
                         ) {
-                            selectedMode = .remote
+                            selectedMode = .familyManagement
                         }
+                        .frame(width: 300)
                     }
                     
                     Button("Continue") {
@@ -274,6 +290,15 @@ struct ParentModeSelectionView: View {
         .fullScreenCover(isPresented: .constant(selectedMode == .remote)) {
             if selectedMode == .remote {
                 RemoteParentDashboardView()
+            }
+        }
+        .fullScreenCover(isPresented: .constant(selectedMode == .familyManagement)) {
+            if selectedMode == .familyManagement {
+                if sharedFamilyManager.currentFamily != nil {
+                    FamilyManagementView()
+                } else {
+                    FamilySetupView()
+                }
             }
         }
     }

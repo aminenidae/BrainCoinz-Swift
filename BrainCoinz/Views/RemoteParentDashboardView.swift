@@ -16,6 +16,7 @@ import FamilyControls
  */
 struct RemoteParentDashboardView: View {
     @EnvironmentObject var familyAccountManager: FamilyAccountManager
+    @EnvironmentObject var sharedFamilyManager: SharedFamilyManager
     @EnvironmentObject var authManager: AuthenticationManager
     @EnvironmentObject var notificationManager: NotificationManager
     
@@ -27,12 +28,9 @@ struct RemoteParentDashboardView: View {
     
     var body: some View {
         NavigationView {
-            if familyAccountManager.familyAccount == nil {
-                // Family setup view
-                FamilySetupView(
-                    showingSetup: $showingFamilySetup,
-                    familyCode: $familyCode
-                )
+            if sharedFamilyManager.currentFamily == nil {
+                // Show family setup using the new SharedFamilyManager
+                FamilySetupView()
             } else {
                 // Main remote dashboard
                 mainDashboardView
@@ -68,7 +66,7 @@ struct RemoteParentDashboardView: View {
             ToolbarItem(placement: .navigationBarTrailing) {
                 Menu {
                     Button("Refresh Data") {
-                        familyAccountManager.syncFamilyData()
+                        sharedFamilyManager.refreshFamilyData { _, _ in }
                     }
                     
                     Button("Family Settings") {
@@ -86,7 +84,7 @@ struct RemoteParentDashboardView: View {
             }
         }
         .refreshable {
-            familyAccountManager.syncFamilyData()
+            sharedFamilyManager.refreshFamilyData { _, _ in }
         }
     }
     
@@ -94,12 +92,12 @@ struct RemoteParentDashboardView: View {
         VStack(alignment: .leading, spacing: 12) {
             HStack {
                 VStack(alignment: .leading) {
-                    if let family = familyAccountManager.familyAccount {
-                        Text(family.familyName)
+                    if let family = sharedFamilyManager.currentFamily {
+                        Text(family.name)
                             .font(.title2)
                             .fontWeight(.semibold)
                         
-                        Text("Family Code: \(family.familyCode)")
+                        Text("Family ID: \(family.id.uuidString.prefix(8))...")
                             .font(.caption)
                             .foregroundColor(.secondary)
                     }
@@ -110,7 +108,7 @@ struct RemoteParentDashboardView: View {
                 VStack(alignment: .trailing) {
                     syncStatusIndicator
                     
-                    if let lastSync = familyAccountManager.lastSyncDate {
+                    if let lastSync = sharedFamilyManager.lastSyncDate {
                         Text("Last sync: \(lastSync, style: .relative)")
                             .font(.caption2)
                             .foregroundColor(.secondary)
@@ -136,7 +134,7 @@ struct RemoteParentDashboardView: View {
     }
     
     private var syncStatusColor: Color {
-        switch familyAccountManager.syncStatus {
+        switch sharedFamilyManager.syncStatus {
         case .idle:
             return .gray
         case .syncing:
@@ -149,7 +147,7 @@ struct RemoteParentDashboardView: View {
     }
     
     private var syncStatusText: String {
-        switch familyAccountManager.syncStatus {
+        switch sharedFamilyManager.syncStatus {
         case .idle:
             return "Ready"
         case .syncing:
@@ -178,20 +176,21 @@ struct RemoteParentDashboardView: View {
             }
             
             // Show parent devices separately
-            if !familyAccountManager.getParentDevices().isEmpty {
+            let parentMembers = sharedFamilyManager.familyMembers.filter { $0.role == .parent || $0.role == .organizer }
+            if !parentMembers.isEmpty {
                 VStack(alignment: .leading, spacing: 8) {
-                    Text("Parent Devices (\(familyAccountManager.getParentDevices().count))")
+                    Text("Parent Devices (\(parentMembers.count))")
                         .font(.subheadline)
                         .fontWeight(.medium)
                         .foregroundColor(.blue)
                     
                     LazyVGrid(columns: Array(repeating: GridItem(.flexible()), count: 2), spacing: 12) {
-                        ForEach(familyAccountManager.getParentDevices(), id: \.deviceID) { device in
-                            DeviceCard(
-                                device: device,
+                        ForEach(parentMembers) { member in
+                            FamilyMemberCard(
+                                member: member,
                                 isSelected: false
                             ) {
-                                // Parent devices don't need selection
+                                // Parent devices don't need selection for remote commands
                             }
                         }
                     }
@@ -199,27 +198,36 @@ struct RemoteParentDashboardView: View {
             }
             
             // Show child devices
-            if !familyAccountManager.getChildDevices().isEmpty {
+            let childMembers = sharedFamilyManager.familyMembers.filter { $0.role == .child }
+            if !childMembers.isEmpty {
                 VStack(alignment: .leading, spacing: 8) {
-                    Text("Child Devices (\(familyAccountManager.getChildDevices().count))")
+                    Text("Child Devices (\(childMembers.count))")
                         .font(.subheadline)
                         .fontWeight(.medium)
                         .foregroundColor(.green)
                     
                     LazyVGrid(columns: Array(repeating: GridItem(.flexible()), count: 2), spacing: 12) {
-                        ForEach(familyAccountManager.getChildDevices(), id: \.deviceID) { device in
-                            DeviceCard(
-                                device: device,
-                                isSelected: selectedChildDevice?.deviceID == device.deviceID
+                        ForEach(childMembers) { member in
+                            FamilyMemberCard(
+                                member: member,
+                                isSelected: selectedChildDevice?.deviceID == member.deviceID
                             ) {
-                                selectedChildDevice = device
+                                // Convert FamilyMember to ConnectedDevice for backward compatibility
+                                selectedChildDevice = ConnectedDevice(
+                                    deviceID: member.deviceID,
+                                    deviceName: member.deviceName,
+                                    userName: member.name,
+                                    deviceType: "child",
+                                    isActive: member.isOnline,
+                                    lastSeen: member.lastSeen
+                                )
                             }
                         }
                     }
                 }
             }
             
-            if familyAccountManager.connectedDevices.isEmpty {
+            if sharedFamilyManager.familyMembers.isEmpty {
                 EmptyDevicesView()
             }
         }
@@ -231,13 +239,13 @@ struct RemoteParentDashboardView: View {
                 .font(.headline)
                 .fontWeight(.semibold)
             
-            if !familyAccountManager.canSendRemoteCommands() {
+            if !sharedFamilyManager.canManageFamily {
                 VStack(spacing: 8) {
                     Image(systemName: "lock.shield")
                         .font(.title2)
                         .foregroundColor(.orange)
                     
-                    Text("Only parent devices can send remote commands")
+                    Text("Only parents and organizers can send remote commands")
                         .font(.subheadline)
                         .foregroundColor(.secondary)
                         .multilineTextAlignment(.center)
@@ -548,10 +556,100 @@ struct DeviceCard: View {
 }
 
 /**
+ * Family member card for the new SharedFamilyManager system
+ */
+struct FamilyMemberCard: View {
+    let member: FamilyMember
+    let isSelected: Bool
+    let onTap: () -> Void
+    
+    var body: some View {
+        Button(action: onTap) {
+            VStack(alignment: .leading, spacing: 8) {
+                HStack {
+                    Image(systemName: memberIcon)
+                        .font(.title2)
+                        .foregroundColor(memberRoleColor)
+                    
+                    Spacer()
+                    
+                    Circle()
+                        .fill(member.isOnline ? Color.green : Color.gray)
+                        .frame(width: 8, height: 8)
+                }
+                
+                Text(member.name)
+                    .font(.headline)
+                    .fontWeight(.semibold)
+                    .foregroundColor(.primary)
+                
+                Text(member.deviceName)
+                    .font(.caption)
+                    .foregroundColor(.secondary)
+                
+                HStack {
+                    Text(member.role.displayName)
+                        .font(.caption2)
+                        .foregroundColor(memberRoleColor)
+                        .fontWeight(.medium)
+                    
+                    Spacer()
+                    
+                    if member.isCurrentUser {
+                        Text("You")
+                            .font(.caption2)
+                            .foregroundColor(.blue)
+                            .fontWeight(.medium)
+                    }
+                }
+                
+                Text("Last seen: \(member.lastSeen, style: .relative)")
+                    .font(.caption2)
+                    .foregroundColor(.secondary)
+            }
+            .padding()
+            .background(isSelected ? Color.blue.opacity(0.1) : Color(.systemGray6))
+            .cornerRadius(12)
+            .overlay(
+                RoundedRectangle(cornerRadius: 12)
+                    .stroke(isSelected ? Color.blue : Color.clear, lineWidth: 2)
+            )
+        }
+    }
+    
+    private var memberIcon: String {
+        switch member.role {
+        case .organizer:
+            return "crown.fill"
+        case .parent:
+            return "person.badge.shield.checkmark"
+        case .guardian:
+            return "shield.fill"
+        case .child:
+            return "iphone"
+        }
+    }
+    
+    private var memberRoleColor: Color {
+        switch member.role {
+        case .organizer:
+            return .orange
+        case .parent:
+            return .blue
+        case .guardian:
+            return .green
+        case .child:
+            return .purple
+        }
+    }
+}
+
+/**
  * Actions available for selected child device
  */
 struct SelectedDeviceActionsView: View {
     @EnvironmentObject var familyAccountManager: FamilyAccountManager
+    @EnvironmentObject var sharedFamilyManager: SharedFamilyManager
     let device: ConnectedDevice
     
     var body: some View {
@@ -591,8 +689,8 @@ struct SelectedDeviceActionsView: View {
     }
     
     private func sendBlockAppsCommand() {
-        guard familyAccountManager.canSendRemoteCommands() else {
-            // Show error - only parents can send commands
+        guard sharedFamilyManager.canManageFamily else {
+            // Show error - only parents/organizers can send commands
             return
         }
         
@@ -602,14 +700,14 @@ struct SelectedDeviceActionsView: View {
             timestamp: Date()
         )
         
-        familyAccountManager.sendRemoteCommand(command, to: device.deviceID) { success in
+        sharedFamilyManager.sendCrossFamilyCommand(command, to: device.deviceID) { success in
             // Handle result
         }
     }
     
     private func sendUnblockAppsCommand() {
-        guard familyAccountManager.canSendRemoteCommands() else {
-            // Show error - only parents can send commands
+        guard sharedFamilyManager.canManageFamily else {
+            // Show error - only parents/organizers can send commands
             return
         }
         
@@ -619,14 +717,14 @@ struct SelectedDeviceActionsView: View {
             timestamp: Date()
         )
         
-        familyAccountManager.sendRemoteCommand(command, to: device.deviceID) { success in
+        sharedFamilyManager.sendCrossFamilyCommand(command, to: device.deviceID) { success in
             // Handle result
         }
     }
     
     private func sendMessageCommand() {
-        guard familyAccountManager.canSendRemoteCommands() else {
-            // Show error - only parents can send commands
+        guard sharedFamilyManager.canManageFamily else {
+            // Show error - only parents/organizers can send commands
             return
         }
         
@@ -636,7 +734,7 @@ struct SelectedDeviceActionsView: View {
             timestamp: Date()
         )
         
-        familyAccountManager.sendRemoteCommand(command, to: device.deviceID) { success in
+        sharedFamilyManager.sendCrossFamilyCommand(command, to: device.deviceID) { success in
             // Handle result
         }
     }
@@ -763,6 +861,7 @@ struct ActivityLogItem: View {
 #Preview {
     RemoteParentDashboardView()
         .environmentObject(FamilyAccountManager())
+        .environmentObject(SharedFamilyManager())
         .environmentObject(AuthenticationManager())
         .environmentObject(NotificationManager())
 }
