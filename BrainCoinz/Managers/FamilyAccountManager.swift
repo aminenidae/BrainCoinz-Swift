@@ -51,6 +51,9 @@ class FamilyAccountManager: ObservableObject {
     
     // MARK: - Initialization
     init() {
+        // Note: Currently uses private database
+        // For true multi-family support with different iCloud accounts,
+        // consider using shared CloudKit databases or public database
         self.database = container.privateCloudDatabase
         checkCloudAvailability()
         setupSubscriptions()
@@ -274,7 +277,52 @@ class FamilyAccountManager: ObservableObject {
     private func checkCloudAvailability() {
         container.accountStatus { [weak self] status, error in
             DispatchQueue.main.async {
-                self?.isCloudAvailable = (status == .available)
+                switch status {
+                case .available:
+                    self?.isCloudAvailable = true
+                    print("CloudKit: User is signed into iCloud and ready")
+                case .noAccount:
+                    self?.isCloudAvailable = false
+                    print("CloudKit: User not signed into iCloud")
+                case .restricted:
+                    self?.isCloudAvailable = false
+                    print("CloudKit: iCloud access restricted")
+                case .couldNotDetermine:
+                    self?.isCloudAvailable = false
+                    print("CloudKit: Could not determine iCloud status")
+                case .temporarilyUnavailable:
+                    self?.isCloudAvailable = false
+                    print("CloudKit: Temporarily unavailable")
+                @unknown default:
+                    self?.isCloudAvailable = false
+                    print("CloudKit: Unknown status")
+                }
+            }
+        }
+    }
+    
+    /**
+     * Gets detailed CloudKit authentication status for user guidance
+     */
+    func getCloudKitAuthenticationGuidance(completion: @escaping (String) -> Void) {
+        container.accountStatus { status, error in
+            DispatchQueue.main.async {
+                let guidance: String
+                switch status {
+                case .available:
+                    guidance = "✅ Ready to use family features"
+                case .noAccount:
+                    guidance = "❌ Please sign in to iCloud in Settings > [Your Name]"
+                case .restricted:
+                    guidance = "❌ iCloud access is restricted. Check Screen Time settings."
+                case .couldNotDetermine:
+                    guidance = "❓ Unable to check iCloud status. Try again later."
+                case .temporarilyUnavailable:
+                    guidance = "⏳ iCloud temporarily unavailable. Try again later."
+                @unknown default:
+                    guidance = "❓ Unknown iCloud status. Check your connection."
+                }
+                completion(guidance)
             }
         }
     }
@@ -463,15 +511,15 @@ enum FamilyAccountError: Error, LocalizedError {
     var errorDescription: String? {
         switch self {
         case .cloudUnavailable:
-            return "iCloud is not available. Please sign in to iCloud."
+            return "⚠️ iCloud is not available.\n\nTo use family features:\n1. Go to Settings > [Your Name]\n2. Sign in to iCloud\n3. Enable iCloud for this app"
         case .familyNotFound:
-            return "Family account not found. Please check the family code."
+            return "❌ Family account not found.\n\nPlease check the 6-digit family code and try again."
         case .deviceAlreadyRegistered:
-            return "This device is already registered with a family account."
+            return "📱 This device is already registered with a family account.\n\nLeave the current family first to join a new one."
         case .unauthorized:
-            return "Not authorized to access family account."
+            return "🔒 Not authorized to access family account.\n\nMake sure you're signed into the correct iCloud account."
         case .unknownError:
-            return "An unknown error occurred."
+            return "❓ An unknown error occurred.\n\nPlease check your internet connection and try again."
         }
     }
 }
