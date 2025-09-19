@@ -2,18 +2,22 @@
 
 ## Overview
 
-BrainCoinz is a comprehensive iOS application designed to help parents manage and motivate their children's screen time through a reward-based learning system. The app integrates with Apple's Screen Time frameworks to track educational app usage and automatically unlock reward apps when learning goals are achieved.
+BrainCoinz is a comprehensive iOS application designed to help parents manage and motivate their children's screen time through an advanced gamified learning economy. The app integrates with Apple's Screen Time frameworks to create a balanced system where children earn virtual Coinz through educational app usage, which they can spend on entertainment apps, while still respecting parent-set daily time limits for healthy screen time management.
 
 ## Features
 
 ### Core Functionality
-- **Learning Goal Management**: Set daily time targets for educational apps
-- **App Categorization**: Separate learning apps (educational) from reward apps (entertainment)
-- **Automatic Reward System**: Unlock reward apps when learning goals are completed
-- **Real-time Progress Tracking**: Monitor learning time and goal progress
-- **Family-Friendly Design**: Separate interfaces for parents and children
-- **Remote Control**: Manage child devices from parent's device (v2.0+)
-- **Multi-Device Support**: Connect and manage multiple family devices (v2.0+)
+- **Coinz Economy System**: Gamified learning where children earn virtual Coinz through educational apps and spend them on entertainment
+- **Cumulative Rewards**: Coinz accumulate across days, encouraging saving and long-term planning
+- **Balanced Time Management**: Coinz purchases are constrained by parent-set daily time limits for responsible screen time
+- **Minimum Learning Requirements**: Configurable daily learning time requirements before accessing reward apps
+- **Learning Goal Management**: Set daily time targets for educational apps with progress tracking
+- **App Categorization**: Separate learning apps (educational) from reward apps (entertainment) with custom rates
+- **Parent Balance Controls**: Award bonuses, apply penalties, and manage child's Coinz balance with full oversight
+- **Real-time Progress Tracking**: Monitor learning time, Coinz earning, and goal progress with live updates
+- **Family-Friendly Design**: Separate interfaces for parents and children with age-appropriate designs
+- **Remote Control**: Manage child devices from parent's device across different iCloud accounts (v2.0+)
+- **True Multi-Family Support**: Connect family members across different iCloud accounts (v3.0+)
 
 ### Technical Integration
 - **Family Controls Framework**: Parental authorization and app selection
@@ -364,7 +368,32 @@ This project is intended for educational and demonstration purposes. Please ensu
 
 ## Version History
 
-### v2.0.0 (Remote Control Release) - COMING SOON
+### v4.0.0 (Coinz Economy System Release) - December 2024
+- **🪙 Coinz Reward System**: Complete gamified learning economy where kids earn virtual Coinz through educational app usage
+- **⚖️ Balanced Economy**: Coinz accumulate across days but are constrained by parent-set daily time limits for healthy screen time
+- **📚 Minimum Learning Requirements**: Configurable daily learning time (default 15 minutes) required before accessing reward apps
+- **⏰ Daily Time Limits**: Parents can set individual daily time limits per reward app with real-time usage tracking
+- **💰 Cumulative Coinz System**: Unused Coinz carry over to the next day, encouraging saving and planning
+- **🎛️ Parent Balance Controls**: Award bonus, apply penalties, reset, increase, or decrease child's Coinz balance with custom reasons
+- **📊 Smart Purchase Validation**: Three-tier validation system (learning requirement → Coinz balance → daily time limits)
+- **📱 Enhanced Child Dashboard**: Visual indicators showing available time vs. limiting factors ("Limited by Coinz" vs "Limited by daily time")
+- **📈 Usage Statistics**: Real-time monitoring of daily app usage vs. limits for parent oversight
+- **🎯 Transaction History**: Complete audit trail of all Coinz transactions with parent adjustment tracking
+- **💜 Carryover Indicators**: Visual highlights showing Coinz carried over from previous days
+- **🔄 Economy Integration**: Sophisticated validation logic preventing purchases that exceed any constraint
+- **⚡ Real-time Notifications**: Coinz earning alerts, purchase confirmations, and limit notifications
+- **🎮 Reward App Economy**: Customizable Coinz costs per minute for different entertainment apps
+- **📚 Learning App Rates**: Configurable earning rates to incentivize priority educational content
+
+### v3.0.0 (True Multi-Family Release)
+- **👨‍👩‍👧‍👦 True Multi-Family Support**: Multiple family members across different iCloud accounts
+- **🔗 CloudKit Shared Databases**: Secure, synchronized data access without requiring shared iCloud account
+- **📧 Family Invitations**: Email/phone invitation system with acceptance workflows
+- **⚡ Real-time Synchronization**: Family usage data, permissions, and settings sync across accounts
+- **🔐 Cross-Account Security**: Secure family membership management with role-based permissions
+- **📱 Native Screen Time Behavior**: Mirrors iOS native Screen Time multi-family functionality
+
+### v2.0.0 (Remote Control Release)
 - **Remote Family Control**: Parents can now control child devices from their own device
 - **CloudKit Integration**: Family data sync across devices using iCloud
 - **Multi-Device Management**: Support for multiple child devices per family account

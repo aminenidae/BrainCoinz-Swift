@@ -32,7 +32,7 @@ struct ContentView: View {
                 if authManager.currentUserRole == .parent {
                     ParentModeSelectionView()
                 } else {
-                    ChildDashboardView()
+                    CoinzChildDashboardView()
                 }
             } else {
                 // Show authentication screen
@@ -193,6 +193,7 @@ struct RoleSelectionButton: View {
         .environmentObject(AuthenticationManager())
         .environmentObject(FamilyControlsManager())
         .environmentObject(FamilyAccountManager())
+        .environmentObject(CoinzManager())
 }
 
 /**
@@ -207,6 +208,7 @@ struct ParentModeSelectionView: View {
         case local
         case remote
         case familyManagement
+        case coinzConfig
     }
     
     var body: some View {
@@ -254,16 +256,27 @@ struct ParentModeSelectionView: View {
                             }
                         }
                         
-                        ParentModeButton(
-                            mode: .familyManagement,
-                            title: "Family Management",
-                            subtitle: "Manage family members and settings",
-                            icon: "person.3.sequence.fill",
-                            isSelected: selectedMode == .familyManagement
-                        ) {
-                            selectedMode = .familyManagement
+                        HStack(spacing: 15) {
+                            ParentModeButton(
+                                mode: .familyManagement,
+                                title: "Family Management",
+                                subtitle: "Manage family members and settings",
+                                icon: "person.3.sequence.fill",
+                                isSelected: selectedMode == .familyManagement
+                            ) {
+                                selectedMode = .familyManagement
+                            }
+                            
+                            ParentModeButton(
+                                mode: .coinzConfig,
+                                title: "Coinz System",
+                                subtitle: "Configure learning rewards",
+                                icon: "dollarsign.circle.fill",
+                                isSelected: selectedMode == .coinzConfig
+                            ) {
+                                selectedMode = .coinzConfig
+                            }
                         }
-                        .frame(width: 300)
                     }
                     
                     Button("Continue") {
@@ -299,6 +312,11 @@ struct ParentModeSelectionView: View {
                 } else {
                     FamilySetupView()
                 }
+            }
+        }
+        .fullScreenCover(isPresented: .constant(selectedMode == .coinzConfig)) {
+            if selectedMode == .coinzConfig {
+                CoinzParentConfigView()
             }
         }
     }
