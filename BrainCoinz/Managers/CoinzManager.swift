@@ -12,6 +12,7 @@ import CloudKit
 import DeviceActivity
 import ManagedSettings
 import Combine
+import BrainCoinz
 
 /**
  * Core manager for the Coinz reward system that gamifies learning by allowing

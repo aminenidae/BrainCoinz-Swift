@@ -193,6 +193,7 @@ struct RoleSelectionButton: View {
         .environmentObject(AuthenticationManager())
         .environmentObject(FamilyControlsManager())
         .environmentObject(FamilyAccountManager())
+        .environmentObject(SharedFamilyManager())
         .environmentObject(CoinzManager())
 }
 

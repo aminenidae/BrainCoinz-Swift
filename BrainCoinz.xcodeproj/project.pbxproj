@@ -20,6 +20,11 @@
 		1A1B1C1D1E1F1026 /* ChildDashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A1B1C1D1E1F1025 /* ChildDashboardView.swift */; };
 		1A1B1C1D1E1F1028 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A1B1C1D1E1F1027 /* NotificationManager.swift */; };
 		1A1B1C1D1E1F102A /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A1B1C1D1E1F1029 /* OnboardingView.swift */; };
+		1A1B1C1D1E1F1047 /* FamilyAccountManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A1B1C1D1E1F1043 /* FamilyAccountManager.swift */; };
+		1A1B1C1D1E1F1048 /* SharedFamilyManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A1B1C1D1E1F1044 /* SharedFamilyManager.swift */; };
+		1A1B1C1D1E1F1049 /* CoinzManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A1B1C1D1E1F1045 /* CoinzManager.swift */; };
+		1A1B1C1D1E1F104A /* CoreDataModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A1B1C1D1E1F1046 /* CoreDataModels.swift */; };
+		1A1B1C1D1E1F104C /* CoinzModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A1B1C1D1E1F104B /* CoinzModels.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,6 +44,11 @@
 		1A1B1C1D1E1F1029 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
 		1A1B1C1D1E1F102B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1A1B1C1D1E1F102C /* BrainCoinz.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = BrainCoinz.entitlements; sourceTree = "<group>"; };
+		1A1B1C1D1E1F1043 /* FamilyAccountManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamilyAccountManager.swift; sourceTree = "<group>"; };
+		1A1B1C1D1E1F1044 /* SharedFamilyManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedFamilyManager.swift; sourceTree = "<group>"; };
+		1A1B1C1D1E1F1045 /* CoinzManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinzManager.swift; sourceTree = "<group>"; };
+		1A1B1C1D1E1F1046 /* CoreDataModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataModels.swift; sourceTree = "<group>"; };
+		1A1B1C1D1E1F104B /* CoinzModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinzModels.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,6 +120,9 @@
 				1A1B1C1D1E1F101F /* DeviceActivityManager.swift */,
 				1A1B1C1D1E1F1021 /* ManagedSettingsManager.swift */,
 				1A1B1C1D1E1F1027 /* NotificationManager.swift */,
+				1A1B1C1D1E1F1043 /* FamilyAccountManager.swift */,
+				1A1B1C1D1E1F1044 /* SharedFamilyManager.swift */,
+				1A1B1C1D1E1F1045 /* CoinzManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -118,6 +131,8 @@
 			isa = PBXGroup;
 			children = (
 				1A1B1C1D1E1F1019 /* DataModel.xcdatamodeld */,
+				1A1B1C1D1E1F1046 /* CoreDataModels.swift */,
+				1A1B1C1D1E1F104B /* CoinzModels.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -203,6 +218,11 @@
 				1A1B1C1D1E1F1011 /* BrainCoinzApp.swift in Sources */,
 				1A1B1C1D1E1F102A /* OnboardingView.swift in Sources */,
 				1A1B1C1D1E1F101A /* DataModel.xcdatamodeld in Sources */,
+				1A1B1C1D1E1F1047 /* FamilyAccountManager.swift in Sources */,
+				1A1B1C1D1E1F1048 /* SharedFamilyManager.swift in Sources */,
+				1A1B1C1D1E1F1049 /* CoinzManager.swift in Sources */,
+				1A1B1C1D1E1F104A /* CoreDataModels.swift in Sources */,
+				1A1B1C1D1E1F104C /* CoinzModels.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

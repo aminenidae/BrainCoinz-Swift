@@ -10,6 +10,7 @@ import Foundation
 import SwiftUI
 import FamilyControls
 import ManagedSettings
+import CoreData
 
 /**
  * Manager responsible for Family Controls integration including:
@@ -148,16 +149,18 @@ class FamilyControlsManager: ObservableObject {
     
     /**
      * Gets the bundle identifiers for learning apps
+     * Fixed the optional unwrapping issue by filtering out nil values
      */
     func getLearningAppBundleIDs() -> Set<String> {
-        return Set(selectedLearningApps.applications.map { $0.bundleIdentifier })
+        return Set(selectedLearningApps.applications.compactMap { $0.bundleIdentifier })
     }
     
     /**
      * Gets the bundle identifiers for reward apps
+     * Fixed the optional unwrapping issue by filtering out nil values
      */
     func getRewardAppBundleIDs() -> Set<String> {
-        return Set(selectedRewardApps.applications.map { $0.bundleIdentifier })
+        return Set(selectedRewardApps.applications.compactMap { $0.bundleIdentifier })
     }
     
     /**
@@ -166,7 +169,7 @@ class FamilyControlsManager: ObservableObject {
     func createLearningAppEntities(for goal: LearningGoal, context: NSManagedObjectContext) {
         for application in selectedLearningApps.applications {
             let selectedApp = SelectedApp(context: context)
-            selectedApp.appBundleID = application.bundleIdentifier
+            selectedApp.appBundleID = application.bundleIdentifier ?? ""
             selectedApp.appName = application.localizedDisplayName ?? "Unknown App"
             selectedApp.appType = "learning"
             selectedApp.selectedAt = Date()
@@ -181,7 +184,7 @@ class FamilyControlsManager: ObservableObject {
     func createRewardAppEntities(for goal: LearningGoal, context: NSManagedObjectContext) {
         for application in selectedRewardApps.applications {
             let selectedApp = SelectedApp(context: context)
-            selectedApp.appBundleID = application.bundleIdentifier
+            selectedApp.appBundleID = application.bundleIdentifier ?? ""
             selectedApp.appName = application.localizedDisplayName ?? "Unknown App"
             selectedApp.appType = "reward"
             selectedApp.selectedAt = Date()

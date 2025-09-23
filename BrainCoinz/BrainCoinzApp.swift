@@ -10,6 +10,7 @@ import SwiftUI
 import FamilyControls
 import ManagedSettings
 import DeviceActivity
+import CoreData
 
 /**
  * Main app entry point for BrainCoinz - A parental control app that uses screen time
